@@ -1,5 +1,4 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 struct EventSystem {
     void (*handlers[100])(const std::string&);
     int count = 0;
@@ -9,6 +8,9 @@ void registerHandler(EventSystem& system, void(*handler)(const std::string&)) {
     if (system.count < 100) {
         system.handlers[system.count] = handler;
         system.count++;
+    }
+    else {
+        std::cout << "Превышено количество обработчиков";
     }
 }
 
@@ -36,5 +38,5 @@ int main()
     registerHandler(system, onUserLogin);
     registerHandler(system, onUserLogout);
     registerHandler(system, onError);
-    triggerEvent(system, "Тестовое сообщение");
+    triggerEvent(system, "Текст");
 }
